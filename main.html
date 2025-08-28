@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Caméra Téléphone</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background: #111;
+    }
+    video {
+      width: 90%;
+      max-width: 600px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.5);
+    }
+  </style>
+</head>
+<body>
+
+  <video id="camera" autoplay playsinline></video>
+
+  <script>
+    const video = document.getElementById("camera");
+
+    async function startCamera() {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: { facingMode: "environment" } // "user" pour la caméra frontale
+        });
+        video.srcObject = stream;
+      } catch (err) {
+        console.error("Erreur accès caméra :", err);
+        alert("Impossible d'accéder à la caméra : " + err.message);
+      }
+    }
+
+    startCamera();
+  </script>
+
+</body>
+</html>
